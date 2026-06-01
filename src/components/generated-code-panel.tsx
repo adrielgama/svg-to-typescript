@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { HighlightedCode } from "@/components/highlighted-code";
 import { StatusMessage, type AppStatus } from "@/components/status-message";
 
 type GeneratedCodePanelProps = {
@@ -72,7 +73,11 @@ export function GeneratedCodePanel({
             </span>
           </div>
           <pre className="h-[420px] max-w-full overflow-auto p-3 text-xs leading-5 sm:h-[520px] sm:p-4 lg:h-[620px]">
-            <code>{code || "// O componente TypeScript aparecerá aqui."}</code>
+            <code>
+              <HighlightedCode
+                code={code || "// O componente TypeScript aparecerá aqui."}
+              />
+            </code>
           </pre>
         </div>
       </CardContent>
