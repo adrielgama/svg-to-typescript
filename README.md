@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://svgtotsx.adrielgama.dev"><strong>Acessar aplicação:</strong> https://svgtotsx.adrielgama.dev</a>
+  <strong>Acessar aplicação:</strong> <a href="https://svgtotsx.adrielgama.dev">https://svgtotsx.adrielgama.dev</a>
 </p>
 
 Ferramenta web para converter SVG em componentes React com TypeScript. O app roda inteiramente no navegador, sem backend, e foi criado para facilitar a transformação de ícones, logos e ilustrações SVG em TSX reutilizável.
