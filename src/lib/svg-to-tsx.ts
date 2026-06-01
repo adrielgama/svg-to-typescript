@@ -99,8 +99,18 @@ export function convertSvgToTsx(input: string, options: ConversionOptions): Conv
     return { ok: false, code: "", error: "Cole um SVG para gerar o componente." }
   }
 
+  const normalizedInput = extractSvgMarkup(input)
+
+  if (!normalizedInput) {
+    return {
+      ok: false,
+      code: "",
+      error: "Entrada inválida. O código precisa conter um elemento <svg>.",
+    }
+  }
+
   const parser = new DOMParser()
-  const doc = parser.parseFromString(input, "image/svg+xml")
+  const doc = parser.parseFromString(normalizedInput, "image/svg+xml")
   const parseError = doc.querySelector("parsererror")
 
   if (parseError) {
@@ -137,8 +147,18 @@ export function formatSvg(input: string): FormatResult {
     return { ok: false, svg: input, error: "Cole um SVG para formatar." }
   }
 
+  const normalizedInput = extractSvgMarkup(input)
+
+  if (!normalizedInput) {
+    return {
+      ok: false,
+      svg: input,
+      error: "Entrada inválida. O código precisa conter um elemento <svg>.",
+    }
+  }
+
   const parser = new DOMParser()
-  const doc = parser.parseFromString(input, "image/svg+xml")
+  const doc = parser.parseFromString(normalizedInput, "image/svg+xml")
   const parseError = doc.querySelector("parsererror")
 
   if (parseError || doc.documentElement.tagName.toLowerCase() !== "svg") {
@@ -306,6 +326,11 @@ function normalizeComponentName(name: string) {
 
   const fallback = cleaned || "SvgIcon"
   return /^[A-Za-z_$]/.test(fallback) ? fallback : `Svg${fallback}`
+}
+
+export function extractSvgMarkup(input: string) {
+  const match = input.match(/<svg\b[\s\S]*<\/svg>/i)
+  return match?.[0].trim() ?? ""
 }
 
 function renderSvgMarkup(element: Element, depth: number): string {
